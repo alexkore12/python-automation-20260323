@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  automation:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./backups:/tmp/backups
+    environment:
+      - BACKUP_DIR=/tmp/backups
+    restart: unless-stopped
+    schedules:
+      - "0 */6 * * *"  # Every 6 hours: cleanup
+      - "0 2 * * *"     # Daily at 2am: backup
