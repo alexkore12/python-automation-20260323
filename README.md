@@ -6,7 +6,7 @@
 
 ## 📋 Descripción
 
-Colección de scripts de automatización en Python para tareas DevOps e infraestructura.
+Colección de scripts de automatización en Python para tareas DevOps y de infraestructura.
 
 ## ✨ Características
 
@@ -14,26 +14,23 @@ Colección de scripts de automatización en Python para tareas DevOps e infraest
 - 🐳 **Docker Ready**: Ejecuta scripts en contenedores aislados
 - 📊 **Logging**: Logging estructurado con rotación de archivos
 - ⚙️ **Configurable**: Totalmente configurable via variables de entorno
-- 🔒 **Security**: Escaneo de vulnerabilidades con pip-audit
-- 🧪 **Testing**: Suite de tests con pytest
+- 🔒 **Security**: Escaneo automático de vulnerabilidades con Grype
+- 📈 **CI/CD**: GitHub Actions para linting, testing y security scanning
 
 ## 🚀 Instalación
 
 ### Local
 
 ```bash
-# Clonar el repositorio
-git clone https://github.com/alexkore12/python-automation-20260323.git
-cd python-automation-20260323
-
-# Ejecutar setup
-chmod +x setup.sh
-./setup.sh
-
-# O manual:
+# Crear entorno virtual
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate  # Linux/macOS
+# venv\Scripts\activate   # Windows
+
+# Instalar dependencias
 pip install -r requirements.txt
+
+# Configurar
 cp .env.example .env
 ```
 
@@ -44,82 +41,52 @@ docker build -t python-automation .
 docker run --env-file .env python-automation
 ```
 
-### Con Docker Compose
-
-```bash
-docker-compose up -d
-```
-
 ## 📁 Estructura del Proyecto
 
 ```
 python-automation/
-├── main.py              # Punto de entrada principal
-├── requirements.txt     # Dependencias Python
-├── .env.example         # Plantilla de variables de entorno
-├── .gitignore
+├── main.py              # Punto de entrada
+├── requirements.txt
+├── .env.example
+├── .dockerignore
 ├── Dockerfile
 ├── docker-compose.yaml
-├── health_check.py      # Script de verificación de salud
-├── setup.sh             # Script de inicialización
-├── test_api.py          # Suite de tests
-├── SECURITY.md          # Política de seguridad
-└── README.md
+├── health_check.py
+├── setup.sh
+└── test_api.py          # Tests de la API/scripting
 ```
 
 ## 🚀 Uso
 
 ```bash
-# Ejecutar con tarea por defecto (healthcheck)
+# Ejecutar todos los scripts de automatización
 python main.py
 
-# Ejecutar tarea específica
-python main.py --task cleanup    # Limpia archivos temporales
-python main.py --task backup     # Crea backups
-python main.py --task report    # Genera reporte de sistema
-python main.py --task healthcheck  # Health checks
+# Ejecutar script específico
+python main.py --task NombreTarea
 
 # Ver ayuda
 python main.py --help
-
-# Verbose
-python main.py --task healthcheck --verbose
 ```
 
-## ⚙️ Configuración
+### Tareas Disponibles
 
-Edita `.env` (copiado de `.env.example`):
-
-| Variable | Descripción | Default |
-|----------|-------------|---------|
-| `BACKUP_DIR` | Directorio para backups | `/tmp/backups` |
-| `BACKUP_DIRS` | Lista de directorios a respaldar (separados por coma) | _(vacío)_ |
-| `HEALTHCHECK_SERVICES` | Servicios a verificar (host:puerto, separados por coma) | `localhost` |
-| `LOG_LEVEL` | Nivel de logging | `INFO` |
+| Tarea | Descripción |
+|-------|-------------|
+| `cleanup` | Limpia archivos temporales y logs antiguos |
+| `backup` | Crea backups de archivos importantes |
+| `report` | Genera reporte de estado del sistema |
+| `healthcheck` | Ejecuta health checks de servicios |
 
 ## 🧪 Testing
 
 ```bash
-# Instalar dependencias de test
-pip install pytest pytest-cov httpx
-
-# Ejecutar tests
 pytest test_api.py -v
-
-# Con coverage
-pytest test_api.py --cov=. --cov-report=html
 ```
 
-## 🔒 Verificación de Salud
+## 🤝 Contribuir
 
-```bash
-# Verificar que el ambiente está listo
-python health_check.py
-```
-
-## 🛡️ Seguridad
-
-Ver [SECURITY.md](SECURITY.md) para política de reporte de vulnerabilidades y mejores prácticas.
+Ver [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## 📝 Licencia
 
